@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>Turn Timer</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="turn-timer.js"></script>
+        <style>
+            .player {
+                float: left;
+                height: 40%;
+                width: 50%;
+                margin: -1px;
+            }
+
+            .player.deceased {
+                background-color: black;
+            }
+
+            .player-name {
+                font-size: 300%;
+                font-weight: bold;
+            }
+
+            .player-time {
+                font-size: 300%;
+            }
+
+            #pause {
+                margin-left: -1px;
+                float: left;
+                font-size: 300%;
+                height: 20%;
+                width: 100%;
+            }
+
+            .toggle-button {
+                background-color: grey;
+                border: 1px solid black;
+                text-align: center;
+            }
+
+            .toggle-button.interactable:active {
+                background-color: blue;
+            }
+
+            .toggle-button.current {
+                background-color: green;
+            }
+        </style>
+    </head>
+    <body></body>
+</html>
