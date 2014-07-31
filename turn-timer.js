@@ -21,6 +21,7 @@ $(function() {
         active = -1,
         body = $('body'),
         tickDelay = 1000, // in ms
+        uiCreated = false,
         lastTime;
 
     function setup() {
@@ -28,27 +29,32 @@ $(function() {
             restoreStateFromString(window.location.hash.substring(1));
         }
 
-        $.each(players, function(i, player) {
-            var playerDiv = $('<div id=player-"' + i  + '" class="player toggle-button">');
-            var nameDiv = $('<p class="player-name">');
-            var timeDiv = $('<p class="player-time">');
-            playerDiv.append(nameDiv).append(timeDiv);
-            playerDiv.click(function() {
-                if (players[i].time > 0) {
-                    console.debug('Active player is now', players[i]);
-                    active = i;
+        if (!uiCreated) {
+            $.each(players, function(i, player) {
+                var playerDiv = $('<div id=player-"' + i  + '" class="player toggle-button">');
+                var nameDiv = $('<p class="player-name">');
+                var timeDiv = $('<p class="player-time">');
+                playerDiv.append(nameDiv).append(timeDiv);
+                playerDiv.click(function() {
+                    if (players[i].time > 0) {
+                        console.debug('Active player is now', players[i]);
+                        active = i;
+                        render();
+                    }
+                });
+                body.append(playerDiv);
+            });
+            $('<div id="pause" class="toggle-button">').click(function() {
+                if (active != -1) {
+                    console.debug("Pausing");
+                    active = -1;
                     render();
                 }
-            });
-            body.append(playerDiv);
-        });
-        $('<div id="pause" class="toggle-button">').click(function() {
-            if (active != -1) {
-                console.debug("Pausing");
-                active = -1;
-                render();
-            }
-        }).text('Pause').appendTo(body);
+            }).text('Pause').appendTo(body);
+            uiCreated = true;
+        }
+
+        render();
     }
 
     function render() {
@@ -86,8 +92,8 @@ $(function() {
             if (players[active].time == 0) {
                 active = -1;
             }
+            window.location.hash = '#' + saveStateAsString();
         }
-        window.location.hash = '#' + saveStateAsString();
     }
 
     /* Returns the current timer state as a string */
@@ -109,10 +115,10 @@ $(function() {
         });
     }
 
-    setup();
-    render();
-    setInterval(function() {
-        update();
+    $(window).on('hashchange', function() {
+        setup();
         render();
-    }, tickDelay);
+    });
+    setup();
+    setInterval(update, tickDelay); //triggers hash change
 })
