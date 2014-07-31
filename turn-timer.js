@@ -32,9 +32,8 @@ $(function() {
         if (!uiCreated) {
             $.each(players, function(i, player) {
                 var playerDiv = $('<div id=player-"' + i  + '" class="player toggle-button">');
-                var nameDiv = $('<p class="player-name">');
-                var timeDiv = $('<p class="player-time">');
-                playerDiv.append(nameDiv).append(timeDiv);
+                var timeSpan = $('<span class="player-time">');
+                playerDiv.append(timeSpan);
                 playerDiv.click(function() {
                     if (players[i].time > 0) {
                         console.debug('Active player is now', players[i]);
@@ -50,7 +49,7 @@ $(function() {
                     active = -1;
                     render();
                 }
-            }).text('Pause').appendTo(body);
+            }).appendTo(body);
             uiCreated = true;
         }
 
@@ -72,8 +71,7 @@ $(function() {
             } else {
                 playerDiv.addClass('deceased');
             }
-            playerDiv.find('.player-name').text(players[i].name);
-            playerDiv.find('.player-time').text(playerMinutes + 'm ' + playerSeconds + 's');
+            playerDiv.find('.player-time').text(playerMinutes + 'm ' + playerSeconds + 's').bigText();
         })
         if (active == -1) {
             pauseDiv.addClass('current');
@@ -96,7 +94,6 @@ $(function() {
         }
     }
 
-    /* Returns the current timer state as a string */
     function saveStateAsString() {
         var str = "";
         $.each(players, function(i, player) {
@@ -108,7 +105,6 @@ $(function() {
         return str;
     }
 
-    /* Restores the current timer state from the given string */
     function restoreStateFromString(state) {
         $.each(state.split(','), function(i, playerTime) {
             players[i].time = parseInt(playerTime) * 1000;
