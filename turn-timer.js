@@ -71,7 +71,7 @@ $(function() {
             } else {
                 playerDiv.addClass('deceased');
             }
-            playerDiv.find('.player-time').text(playerMinutes + ':' + playerSeconds);
+            playerDiv.find('.player-time').text(playerMinutes + ':' + pad(playerSeconds, 2));
         });
         if (active == -1) {
             pauseDiv.addClass('current');
@@ -84,6 +84,12 @@ $(function() {
         }
 
         reApplyBigText();
+    }
+
+    function pad(n, width, z) {
+        z = z || '0';
+        n = n + '';
+        return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
     }
 
     function reApplyBigText() {
