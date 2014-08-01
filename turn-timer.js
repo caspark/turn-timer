@@ -71,8 +71,8 @@ $(function() {
             } else {
                 playerDiv.addClass('deceased');
             }
-            playerDiv.find('.player-time').text(playerMinutes + 'm ' + playerSeconds + 's').bigText();
-        })
+            playerDiv.find('.player-time').text(playerMinutes + ':' + playerSeconds);
+        });
         if (active == -1) {
             pauseDiv.addClass('current');
             pauseDiv.text('Paused');
@@ -82,6 +82,12 @@ $(function() {
             pauseDiv.text('Pause');
             pauseDiv.addClass('interactable');
         }
+
+        reApplyBigText();
+    }
+
+    function reApplyBigText() {
+        $('.player-time').bigText();
     }
 
     function update() {
@@ -114,7 +120,7 @@ $(function() {
     $(window).on('hashchange', function() {
         setup();
         render();
-    });
+    }).on('resize', reApplyBigText);
     setup();
     setInterval(update, tickDelay); //triggers hash change
 })

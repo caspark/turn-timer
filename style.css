@@ -1,0 +1,51 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: sans-serif;
+    font-weight: 300;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.player {
+    float: left;
+    height: 40%;
+    padding: 20px;
+    width: 50%;
+}
+
+.player.deceased {
+    background-color: black;
+}
+.player.deceased .player-time {
+    display: none !important;
+}
+
+#pause {
+    float: left;
+    font-size: 3em;
+    height: 20%;
+    padding: 20px;
+    width: 100%;
+}
+
+.toggle-button {
+    background-color: #333;
+    border: 1px solid black;
+    color: white;
+    text-align: center;
+}
+
+.toggle-button.interactable:active {
+    background-color: #248;
+}
+
+.toggle-button.current {
+    background-color: #284;
+    /*color: black;*/
+}
