@@ -38,7 +38,12 @@ html, body {
     background-color: #333;
     border: 1px solid black;
     color: white;
+    cursor: default;
     text-align: center;
+}
+
+.toggle-button.interactable {
+    cursor: pointer;
 }
 
 .toggle-button.interactable:active {
