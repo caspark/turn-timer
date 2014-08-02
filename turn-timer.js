@@ -102,7 +102,12 @@ $(function() {
             if (players[active].time == 0) {
                 active = -1;
             }
-            window.location.hash = '#' + saveStateAsString();
+            if ('replaceState' in window.history) {
+                window.history.replaceState(null, null, '#' + saveStateAsString());
+                render();
+            } else {
+                window.location.hash = '#' + saveStateAsString();
+            }
         }
     }
 
@@ -123,10 +128,10 @@ $(function() {
         });
     }
 
-    $(window).on('hashchange', function() {
-        setup();
-        render();
-    }).on('resize', reApplyBigText);
+    $(window)
+        .on('hashchange', setup)
+        .on('resize', reApplyBigText);
+
     setup();
     setInterval(update, tickDelay); //triggers hash change
-})
+});
