@@ -104,7 +104,7 @@ $(function() {
             }
             if ('replaceState' in window.history) {
                 window.history.replaceState(null, null, '#' + saveStateAsString());
-                setup();
+                render();
             } else {
                 window.location.hash = '#' + saveStateAsString();
             }
